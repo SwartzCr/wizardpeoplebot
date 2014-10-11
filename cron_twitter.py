@@ -45,3 +45,5 @@ def do_thing():
         tweet_text = get_tweet(paragraph, tweet_text)
     # send tweet
     twitter.update_status(status=tweet_text)
+
+do_thing()
