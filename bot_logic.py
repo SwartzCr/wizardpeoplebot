@@ -30,8 +30,8 @@ def main():
     tweets = twitter.search(q="wizard people", result_type="recent", since_id=info["sinceid"], count='100')
     info["sinceid"] = tweets["search_metadata"]["max_id"]
     to_add = [tweet for tweet in tweets["statuses"] if not tweet["retweeted"] and not tweet.has_key("retweeted_status")]
-    to_add = [tweet for tweet in to_add if "wizard people" in tweet.lower() or
-                                           "#wizardpeople" in tweet.lower()]
+    to_add = [tweet for tweet in to_add if "wizard people" in tweet["text"].lower() or
+                                           "#wizardpeople" in tweet["text"].lower()]
 
     queue = queue + to_add
     if len(queue) > 0:
