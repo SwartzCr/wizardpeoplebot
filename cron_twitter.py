@@ -28,7 +28,7 @@ def get_tweet(paragraph, tweet_text):
         for place in shuffled_punc:
             remains = [x for x in punc if x > place]
             for end in remains[::-1]:
-                if end - place <= 140:
+                if end - place <= 260:
                     if place != 0:
                         return paragraph[place+1:end+1].strip()
                     else:
@@ -43,7 +43,19 @@ def do_thing():
     while tweet_text == "":
         paragraph = pick_paragraph(text)
         tweet_text = get_tweet(paragraph, tweet_text)
+        tweets = []
+        if len(tweet_text) > 140:
+            tweet1 = tweet_text[:135][::-1].split(" ", 1)[1][::-1]
+            x = len(tweet1)
+            tweet1 = tweet1+" (1/2)"
+            tweet2 = tweet_text[x+1:]+" (2/2)"
+            tweets.append(tweet1)
+            tweets.append(tweet2)
+        else:
+            tweets.append(tweet_text)
     # send tweet
-    twitter.update_status(status=tweet_text)
+    for tweet in tweets:
+        twitter.update_status(status=tweet)
+
 
 do_thing()
