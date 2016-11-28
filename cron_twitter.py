@@ -45,17 +45,21 @@ def do_thing():
         tweet_text = get_tweet(paragraph, tweet_text)
         tweets = []
         if len(tweet_text) > 140:
-            tweet1 = tweet_text[:135][::-1].split(" ", 1)[1][::-1]
+            tweet1 = tweet_text[:140][::-1].split(" ", 1)[1][::-1]
             x = len(tweet1)
-            tweet1 = tweet1+" (1/2)"
-            tweet2 = tweet_text[x+1:]+" (2/2)"
+            tweet1 = tweet1
+            tweet2 = tweet_text[x+1:]
             tweets.append(tweet1)
             tweets.append(tweet2)
         else:
             tweets.append(tweet_text)
     # send tweet
-    for tweet in tweets:
-        twitter.update_status(status=tweet)
+    if len(tweets) > 1:
+        resp = 0
+        s = twitter.update_status(status=tweets[0])
+        twitter.update_status(status=tweets[1], in_reply_to_status_id=s["id"])
+    else:
+        twitter.update_status(status=tweets[0])
 
 
 do_thing()
