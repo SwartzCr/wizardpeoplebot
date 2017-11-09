@@ -44,8 +44,8 @@ def do_thing():
         paragraph = pick_paragraph(text)
         tweet_text = get_tweet(paragraph, tweet_text)
         tweets = []
-        if len(tweet_text) > 140:
-            tweet1 = tweet_text[:140][::-1].split(" ", 1)[1][::-1]
+        if len(tweet_text) > 280:
+            tweet1 = tweet_text[:280][::-1].split(" ", 1)[1][::-1]
             x = len(tweet1)
             tweet1 = tweet1
             tweet2 = tweet_text[x+1:]
